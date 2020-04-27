@@ -11,3 +11,40 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#root{
+  text-align:center;
+}
+.mainCalculator{
+  margin:0px;
+  padding:0px;
+  border-radius: 0px;
+  box-sizing: border-box;
+}
+.screen input{
+  width: 90px;
+  background: #222222;
+  border: 0px;
+  color: #ffffff;
+  padding: 10px;
+  text-align: right;
+}
+.butun-number{
+  background-color: #37b94c !important;
+  font-size: 20px;
+  text-align: center;
+  width: 30px;
+}
+.butun-function{
+  background-color: #3126d1 !important;
+  font-size: 20px;
+  text-align: center;
+  width: 30px;
+
+}
+.butun-clear{
+  background-color: #e6204b !important;
+  font-size: 20px;
+  text-align: center;
+  width:30px;
+}
+
