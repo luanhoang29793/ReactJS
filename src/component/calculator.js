@@ -9,7 +9,8 @@ class Calculator extends React.Component {
       numberone: null,
       numbertwo: null,
       action: null,
-      result: null,
+      key:null,
+      result: "0",
     };
     this.clickbutton = this.clickbutton.bind(this);
   }
@@ -22,12 +23,13 @@ class Calculator extends React.Component {
     const del = value === "Del";
 
     if (
-      this.state.numbertwo === null &&
+      this.state.numbertwo === null && 
       !del &&
       !func &&
       !equal &&
       !cle &&
-      this.state.action === null
+      this.state.action === null &&
+      this.state.key ===null
     ) {
       let temp1 =
         this.state.numberone === null
@@ -78,7 +80,12 @@ class Calculator extends React.Component {
         parseFloat(this.state.numberone) + parseFloat(this.state.numbertwo);
       if (this.state.action === "+") {
         this.setState(
-          { result: tong, numberone: tong, numbertwo: null, action: null },
+          { result: tong===0?"0":tong.toFixed(2), 
+            numberone: tong.toFixed(2),
+             numbertwo: null, 
+             action: null,
+             key:"1"
+            },
           () => {}
         );
       } else if (this.state.action === "-") {
@@ -86,46 +93,54 @@ class Calculator extends React.Component {
           parseFloat(this.state.numberone) - parseFloat(this.state.numbertwo);
 
         this.setState({
-          result: hieu,
-          numberone: hieu,
+          result: hieu===0?"0":hieu.toFixed(2),
+          numberone: hieu.toFixed(2),
           numbertwo: null,
           action: null,
-        });
+          key:"1"
+        },()=>
+        console.log("phep tinh 0", hieu));
       } else if (this.state.action === "*") {
         var nhan =
           parseFloat(this.state.numberone) * parseFloat(this.state.numbertwo);
 
         this.setState({
-          result: nhan,
-          numberone: nhan,
+          result: nhan===0?"0":nhan.toFixed(2),
+          numberone: nhan.toFixed(2),
           numbertwo: null,
           action: null,
+          key:"1"
+
         });
       } else if (this.state.action === "/") {
         var chia =
           parseFloat(this.state.numberone) / parseFloat(this.state.numbertwo);
 
         this.setState({
-          result: chia,
-          numberone: chia,
+          result: chia===0?"0":chia.toFixed(2),
+          numberone: chia.toFixed(2),
           numbertwo: null,
           action: null,
+          key:"1"
+
         });
       }
     } else if (cle) {
       console.log("xoa");
       this.setState({
-        result: null,
+        result: "0",
         numberone: null,
         numbertwo: null,
         action: null,
+        key:null,
       });
     } else if (del) {
       console.log("xoa 1");
       if (
         this.state.numberone != null &&
         this.state.numbertwo === null &&
-        this.state.action === null
+        this.state.action === null &&
+        this.state.key ===null
       ) {
         console.log("xoa number one");
         console.log("result", this.state.result.length);
@@ -147,15 +162,41 @@ class Calculator extends React.Component {
         let strResult;
         let result = this.state.result;
         strResult = result.substring(0, result.length - 1);
+        this.setState({result:strResult})
         console.log("strResult", strResult.length);
-       let numbertwo2 = this.state.numbertwo
+        let strnumbertwo = this.state.numbertwo;
+        console.log(strnumbertwo.length,"numbertwo.lenght")
+        strnumbertwo.length===1?this.setState({numbertwo:null})
+        :this.setState({numbertwo:strnumbertwo.substring(0,strnumbertwo.length-1)},()=>{
+          console.log(this.state.numberone)
+          console.log(this.state.action)
+          console.log(this.state.numbertwo)
+          console.log(this.state.result)
 
+
+        })
       } else if (
         this.state.numberone != null &&
         this.state.numbertwo === null &&
         this.state.action !== null
       ) {
-        console.log("xoa action");
+        console.log("xoa action"); let strResult;
+        let result = this.state.result;
+        strResult = result.substring(0, result.length - 1);
+        this.setState({result:strResult})
+        console.log("strResult", strResult.length);
+        let strac = this.state.action;
+        console.log(strac.length,"acction.lenght")
+        strac!==null?this.setState({action:null})
+        :this.setState({action:strac})
+      }
+      else{
+        this.setState({result: "Math erro",
+        numberone: null,
+        numbertwo: null,
+        action: null,
+        key:null,})
+
       }
     }
   }
