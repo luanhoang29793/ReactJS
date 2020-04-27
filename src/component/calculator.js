@@ -78,12 +78,12 @@ class Calculator extends React.Component {
     ) {
       var tong =
         parseFloat(this.state.numberone) + parseFloat(this.state.numbertwo);
-        var strtong =tong.toFixed(2)
-        var ltong=strtong.substring(strtong.length-3,strtong.length)==.00?tong:strtong;
+        // var strtong =tong.toFixed(2)
+        // var ltong=strtong.substring(strtong.length-3,strtong.length)==.00?tong:strtong;
       if (this.state.action === "+") {
         this.setState(
           {
-            result: tong === 0 ? "0" : ltong,
+            result: tong === 0 ? "0" : this.roundNumber(tong),
             numberone: tong,
             numbertwo: null,
             action: null,
@@ -94,12 +94,12 @@ class Calculator extends React.Component {
       } else if (this.state.action === "-") {
         var hieu =
           parseFloat(this.state.numberone) - parseFloat(this.state.numbertwo);
-          var strhieu =hieu.toFixed(2)
-          var lhieu=strhieu.substring(strhieu.length-3,strhieu.length)==.00?hieu:strhieu;
+          // var strhieu =hieu.toFixed(2)
+          // var lhieu=strhieu.substring(strhieu.length-3,strhieu.length)==.00?hieu:strhieu;
 
         this.setState(
           {
-            result: hieu === 0 ? "0" : lhieu,
+            result: hieu === 0 ? "0" : this.roundNumber(hieu),
             numberone: hieu,
             numbertwo: null,
             action: null,
@@ -110,11 +110,11 @@ class Calculator extends React.Component {
       } else if (this.state.action === "*") {
         var nhan =
           parseFloat(this.state.numberone) * parseFloat(this.state.numbertwo);
-          var strnhan =nhan.toFixed(2)
-          var lnhan=strnhan.substring(strnhan.length-3,strnhan.length)==.00?nhan:strnhan;
+          // var strnhan =nhan.toFixed(2)
+          // var lnhan=strnhan.substring(strnhan.length-3,strnhan.length)==.00?nhan:strnhan;
 
         this.setState({
-          result: nhan === 0 ? "0" : lnhan,
+          result: nhan === 0 ? "0" : this.roundNumber(nhan),
           numberone: nhan,
           numbertwo: null,
           action: null,
@@ -124,13 +124,13 @@ class Calculator extends React.Component {
         var chia =
           parseFloat(this.state.numberone) / parseFloat(this.state.numbertwo);
         // var  strchia = chia.toFixed(2).substring(chia.length-4,chia.length-1)===00?chia:chia.toFixed(2);
-        var strchia =chia.toFixed(2)
-        var lchia=strchia.substring(strchia.length-3,strchia.length)==.00?chia:strchia;
-        console.log(strchia,"hfhfj")
-        console.log(lchia,"hfhfsasdsadj")
+        // var strchia =chia.toFixed(2)
+        // var lchia=strchia.substring(strchia.length-3,strchia.length)==.00?chia:strchia;
+        // console.log(strchia,"hfhfj")
+        // console.log(lchia,"hfhfsasdsadj")
 
         this.setState({
-          result: chia === 0 ? "0" : lchia,
+          result: chia === 0 ? "0" : this.roundNumber(chia),
           numberone: chia,
           numbertwo: null,
           action: null,
@@ -216,6 +216,16 @@ class Calculator extends React.Component {
       }
     }
   }
+  roundNumber(number){
+    var strnumber =number.toFixed(2)
+    
+    if(strnumber.substring(strnumber.length-3,strnumber.length)==.00){
+    strnumber =number;
+  } else {
+    strnumber =number.toFixed(2)
+  }
+  return strnumber;
+}
   render() {
     return (
       <div className="mainCalculator">
@@ -288,9 +298,9 @@ class Calculator extends React.Component {
         </div>
         <div className="button-row">
           <Button
-            className="butun-clear"
+            className="butun-function"
             clickbutton={this.clickbutton}
-            label={"CE"}
+            label={"."}
           />
           <Button
             className="butun-number"
@@ -310,15 +320,14 @@ class Calculator extends React.Component {
         </div>
         <div>
           <Button
-            className="butun-function"
+            className="butun-del"
             clickbutton={this.clickbutton}
             label={"Del"}
-            size="10"
           />
           <Button
-            className="butun-function"
+            className="butun-clear"
             clickbutton={this.clickbutton}
-            label={"."}
+            label={"CE"}
           />
         </div>
       </div>
